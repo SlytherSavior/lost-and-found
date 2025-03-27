@@ -14,7 +14,7 @@ const guidelines = () => {
                 <View style={styles.guidelinesContainer}>
                     <Text style={styles.title}>Guidelines to Follow</Text>
                     <Text style={styles.subtitle}>
-                        Please read these guidelines carefully before filling out the form.
+                        Please read these guidelines carefully before adding any lost / found items.
                     </Text>
 
                     <Text style={styles.guideline}>

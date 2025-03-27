@@ -6,10 +6,16 @@ const _layout = () => {
     return (
         <Tabs>
             <Tabs.Screen
-                name="home"
+                name="Home"
                 options={{ headerShown: false }} />
             <Tabs.Screen
-                name="guidelines"
+                name="Guidelines"
+                options={{ headerShown: false }} />
+            <Tabs.Screen
+                name="New Request"
+                options={{ headerShown: false }} />
+            <Tabs.Screen
+                name="Your Requests"
                 options={{ headerShown: false }} />
         </Tabs>
     )
