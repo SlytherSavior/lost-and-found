@@ -1,0 +1,6 @@
+API_KEY="AIzaSyDPFhcYgKNFBjADhJmDyr-HoSAf_mTh_tQ"
+AUTH_DOMAIN="lost-and-found-2a8f6.firebaseapp.com"
+PROJECT_ID="lost-and-found-2a8f6"
+STORAGE_BUCKET="lost-and-found-2a8f6.firebasestorage.app"
+MESSAGING_SENDER_ID="601167392270"
+APP_ID="1:601167392270:web:15d27c9726fb424b6c165f"
