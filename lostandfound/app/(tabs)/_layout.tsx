@@ -27,14 +27,14 @@ const _layout = () => {
                     tabBarIcon: () => <Ionicons name="document-text-outline" size={24} color="black" />,
                 }} />
             <Tabs.Screen
-                name="New Request"
+                name="NewReq"
                 options={{
                     headerShown: false,
                     title: "New Request",
                     tabBarIcon: () => <AntDesign name="pluscircleo" size={23} color="black" />,
                 }} />
             <Tabs.Screen
-                name="Your Requests"
+                name="UserReq"
                 options={{
                     headerShown: false,
                     title: "Your Requests",
