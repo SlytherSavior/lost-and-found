@@ -9,6 +9,9 @@ dist/
 web-build/
 expo-env.d.ts
 
+#plans
+plans.txt
+
 # Native
 *.orig.*
 *.jks
