@@ -1,10 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc, getDoc } from "firebase/firestore"; //you have option for firebase/firestore/lite
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 
 
@@ -23,15 +18,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function readData() {
-    const docRef = doc(db, "Data", "g8wZ4B6IPg9m3L0aw8cS");
-    const docSnap = await getDoc(docRef);
+export { db };
 
-    if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-    } else {
-        console.log("No such document!");
-    }
-}
+// async function readData() {
+//     const collectionRef = collection(db, "Data");
+//     const collecSnap = await getDocs(collectionRef);
 
-readData(); //fixing firestore , so apprently it is working
+//     collecSnap.forEach((doc) => {
+//         console.log("Document: ", doc.data());
+//     }) // this now works
+// }
+// readData(); 
