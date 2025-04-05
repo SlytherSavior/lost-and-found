@@ -3,7 +3,9 @@ import React from 'react'
 import { Tabs } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Entypo from '@expo/vector-icons/Entypo';
-
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+// sadly had to use so many icon imports need a better convention :(
 
 
 
@@ -22,14 +24,22 @@ const _layout = () => {
                 options={{
                     headerShown: false,
                     title: "Guidelines",
-                    tabBarIcon: () => <Entypo name="text-document" size={24} color="black" />,
+                    tabBarIcon: () => <Ionicons name="document-text-outline" size={24} color="black" />,
                 }} />
             <Tabs.Screen
                 name="New Request"
-                options={{ headerShown: false }} />
+                options={{
+                    headerShown: false,
+                    title: "New Request",
+                    tabBarIcon: () => <AntDesign name="pluscircleo" size={23} color="black" />,
+                }} />
             <Tabs.Screen
                 name="Your Requests"
-                options={{ headerShown: false }} />
+                options={{
+                    headerShown: false,
+                    title: "Your Requests",
+                    tabBarIcon: () => <MaterialIcons name="history" size={29} color="black" />,
+                }} />
         </Tabs>
     )
 }
