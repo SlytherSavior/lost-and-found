@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const PubRecord = (record) => {
+export function PubRecord(record) {
     //need to now display that record in a good component format style .... yeahhh
     /* soo we need the record 
     soo , for the record, the , hmmm first shall we integrate the data base ???? butt then validationnnn soo , at first let's integrate firebase i guess well fuck it we install firebase
@@ -9,10 +9,8 @@ const PubRecord = (record) => {
     return (
         <View>
             <Text className="font-bold">PubRecord</Text>
-        </View >
+        </View>
     )
-}
-
-export default PubRecord
+};
 
 const styles = StyleSheet.create({})

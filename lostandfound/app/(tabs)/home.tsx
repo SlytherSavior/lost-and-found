@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { db } from '@/firebaseConfig';
+import { PubRecord } from '@/components/PubRecord';
 
 const Home = () => {
     return (
