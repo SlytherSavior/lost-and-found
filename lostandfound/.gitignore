@@ -9,6 +9,9 @@ dist/
 web-build/
 expo-env.d.ts
 
+#temporary data
+data.js
+
 #plans
 plans.txt
 
