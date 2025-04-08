@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
+import { getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 
 // Your web app's Firebase configuration
@@ -17,15 +17,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const dataList = async () => {
+    const collectionRef = collection(db, "Data");
+    const collectionSnap = await getDocs(collectionRef);
+    return collectionSnap;
+};
 
-export { db };
 
-// async function readData() {
-//     const collectionRef = collection(db, "Data");
-//     const collecSnap = await getDocs(collectionRef);
-
-//     collecSnap.forEach((doc) => {
-//         console.log("Document: ", doc.data());
-//     }) // this now works
-// }
-// readData(); 
+export { dataList };
