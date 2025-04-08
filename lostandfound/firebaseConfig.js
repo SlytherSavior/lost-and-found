@@ -20,8 +20,11 @@ const db = getFirestore(app);
 const dataList = async () => {
     const collectionRef = collection(db, "Data");
     const collectionSnap = await getDocs(collectionRef);
+    collectionSnap.forEach((doc) => {
+        console.log(doc);
+    })
     return collectionSnap;
 };
-
+dataList()
 
 export { dataList };

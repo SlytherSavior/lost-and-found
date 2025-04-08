@@ -5,11 +5,11 @@ import { dataList } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
 
 const Home = () => {
-    const fetchData = async () => {
-        const globalList = await dataList();
-        return globalList;
-    }
-    const mainList = fetchData();
+    // const fetchData = async () => {
+    //     const globalList = await dataList();
+    //     return globalList;
+    // }
+    // const mainList = fetchData();
 
 
     return (
