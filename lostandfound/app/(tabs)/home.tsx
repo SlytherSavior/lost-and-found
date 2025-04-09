@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { dataList } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
@@ -10,6 +10,19 @@ const Home = () => {
     //     return globalList;
     // }
     // const mainList = fetchData();
+    // const fetchData = async () => {
+    //     const globalList = await dataList();
+    //     return globalList;
+    // }
+    // const [mainList, setmainList] = useState([]);
+
+    // useEffect(() => {
+    //     fetchData().then(response => {
+    //         setmainList(response.Data())
+    //     }
+    //     )
+
+    // }, [])
 
 
     return (

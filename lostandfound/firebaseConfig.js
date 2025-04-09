@@ -21,7 +21,11 @@ const dataList = async () => {
     const collectionRef = collection(db, "Data");
     const collectionSnap = await getDocs(collectionRef);
     collectionSnap.forEach((doc) => {
-        console.log(doc);
+        const data = {
+            data: doc.data(),
+            id: doc.id
+        }
+        console.log(data)
     })
     return collectionSnap;
 };
