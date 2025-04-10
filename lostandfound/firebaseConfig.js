@@ -17,18 +17,26 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const dataList = async () => {
-    const collectionRef = collection(db, "Data");
-    const collectionSnap = await getDocs(collectionRef);
-    collectionSnap.forEach((doc) => {
-        const data = {
-            data: doc.data(),
-            id: doc.id
-        }
-        console.log(data)
-    })
-    return collectionSnap;
-};
-dataList()
+// const dataList = async () => {
+//     const collectionRef = collection(db, "Data");
+//     const collectionSnap = await getDocs(collectionRef);
+//     collectionSnap.forEach((doc) => {
+//         const data = {
+//             data: doc.data(),
+//             id: doc.id
+//         }
+//         console.log(data)
+//     })
+//     return collectionSnap;
+// };
+const collectionRef = collection(db, "Data");
+getDocs(collectionRef).then(response => {
+    const list = response.docs.map((doc) => ({
+        data: doc.data(),
+        id: doc.id,
+    }))
+    console.log(list);
+})
+// dataList()
 
-export { dataList };
+export { db };

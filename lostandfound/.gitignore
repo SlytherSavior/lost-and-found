@@ -12,8 +12,14 @@ expo-env.d.ts
 #temporary data
 data.js
 
-#plans
+#plans 
 plans.txt
+
+#learning and practice
+Practice.tsx
+Practice.jsx
+Practice.js
+Practice.ts
 
 # Native
 *.orig.*
