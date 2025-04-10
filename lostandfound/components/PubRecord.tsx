@@ -1,18 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { recordType } from '@/types'
 
-type PubRecordProps = {
-    id: number,
-    data: {
-        Category: string;
-        Uploader: string;
-        Status: boolean;
-        Description: string;
-        Title: string;
-    }
-}
 
-export function PubRecord(record: PubRecordProps) {
+
+export function PubRecord(record: recordType) {
 
     return (
         <View className="bg-card border-solid text-cardText flex flex-col m-2" style={styles.cardHolder} key={record.id}>
