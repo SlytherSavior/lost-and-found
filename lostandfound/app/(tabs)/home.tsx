@@ -4,15 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { db } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
 import { collection, getDocs } from 'firebase/firestore';
-
+import { recordType } from '@/types';
 
 const Home = () => {
     const collecData = collection(db, "Data");
-    const [mainList, setMainList] = useState([]);
+    const [mainList, setMainList] = useState<recordType[]>([]);
     useEffect(() => {
-        let tempList = [];
         getDocs(collecData).then(response => {
-            const dataList = response.docs.map((doc) => ({
+            const dataList: recordType[] = response.docs.map((doc) => ({
                 id: doc.id,
                 data: doc.data(),
             }))
@@ -21,13 +20,7 @@ const Home = () => {
             console.log(error.message)
         })
     }, [])
-    // useEffect(() => {
-    //     fetchData().then(response => {
-    //         setmainList(response.Data())
-    //     }
-    //     )
 
-    // }, [])
 
 
     return (
