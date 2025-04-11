@@ -1,41 +1,69 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { recordType } from '@/types'
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { recordType } from '@/types';
 
-interface pubRecordType {
-    record: recordType
+interface PubRecordType {
+    record: recordType;
 }
 
-export function PubRecord({ record }: pubRecordType) {
-
+export function PubRecord({ record }: PubRecordType) {
     return (
-        <View className="bg-card border-solid text-cardText flex flex-col m-2" style={styles.cardHolder} key={record.id}>
-            <View className="grid grid-cols-3 gap-2 " style={styles.titleBar}>
-                <Text className="font-bold  text-xl col-span-2">{record.data.Title}</Text>
-                <Text >{record.data.Category}</Text>
+        <View style={styles.card}>
+            <View style={styles.header}>
+                <Text style={styles.title}>{record.data.Title}</Text>
+                <Text style={styles.category}>{record.data.Category}</Text>
             </View>
-            <View>
-                <Text className="text-lg" style={styles.Description}>{record.data.Description}</Text>
+            <Text style={styles.description}>{record.data.Description}</Text>
+            <View style={styles.footer}>
+                <Text style={styles.uploader}>Uploaded by: {record.data.Uploader}</Text>
             </View>
-            <View style={styles.Bottom} className="text-sm">
-                <Text>{record.data.Uploader}</Text>
-            </View>
-
         </View>
-    )
-};
+    );
+}
 
 const styles = StyleSheet.create({
-    cardHolder: {
-        borderRadius: 50,
+    card: {
+        backgroundColor: '#fdfdfd',
+        margin: 12,
+        padding: 16,
+        borderRadius: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 5,
     },
-    titleBar: {
-
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 8,
     },
-    Description: {
-
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        flexShrink: 1,
+        color: '#333',
     },
-    Bottom: {
-
-    }
-})
+    category: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#777',
+        alignSelf: 'center',
+    },
+    description: {
+        fontSize: 16,
+        color: '#444',
+        marginBottom: 10,
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderTopWidth: 1,
+        borderTopColor: '#eee',
+        paddingTop: 10,
+    },
+    uploader: {
+        fontSize: 14,
+        color: '#555',
+    },
+});
