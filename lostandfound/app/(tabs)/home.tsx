@@ -5,6 +5,7 @@ import { db } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
 import { collection, getDocs } from 'firebase/firestore';
 import { recordType } from '@/types';
+import { ScrollView } from 'react-native-reanimated/lib/typescript/Animated';
 
 const Home = () => {
     const collecData = collection(db, "Data");
@@ -25,7 +26,12 @@ const Home = () => {
 
     return (
         <SafeAreaView className="flex-1 justify-center items-center bg-background">
-            <Text className="text-2xl text-primary">home</Text>
+            <Text className="text-2xl text-prima ry">Home</Text>
+            <ScrollView >
+                {mainList.map((doc) => (
+                    <PubRecord record={doc}></PubRecord>
+                ))}
+            </ScrollView>
         </SafeAreaView>
     )
 }
