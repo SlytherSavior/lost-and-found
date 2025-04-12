@@ -23,19 +23,36 @@ const Home = () => {
         })
     }, []);
 
-
     return (
-        <SafeAreaView className="flex-1 justify-center items-center bg-background">
-            <Text className="text-2xl text-prima ry">Home</Text>
-            <ScrollView className="bg-black p-4" >
-                {mainList.map((doc) => (
-                    <PubRecord record={doc} key={doc.id}></PubRecord>
-                ))}
+        <SafeAreaView style={styles.container} className="bg-background">
+            <Text className="text-3xl font-bold text-primary mb-4">Lost & Found Items</Text>
+            <ScrollView
+                contentContainerStyle={styles.scrollContainer}
+                showsVerticalScrollIndicator={false}
+            >
+                {mainList.length > 0 ? (
+                    mainList.map((doc) => (
+                        <PubRecord record={doc} key={doc.id} />
+                    ))
+                ) : (
+                    <Text className="text-gray-400 text-center mt-4">No records found.</Text>
+                )}
             </ScrollView>
         </SafeAreaView>
-    )
-}
+    );
+};
 
 export default Home
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingTop: 8,
+    },
+    scrollContainer: {
+        paddingBottom: 32,
+        width: '100%',
+    },
+});
