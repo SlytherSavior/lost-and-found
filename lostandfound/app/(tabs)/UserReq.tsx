@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { db } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDocs } from 'firebase/firestore';
 import { recordType } from '@/types'
 
 const UserReq = () => {
     const collecData = collection(db, "Data");
     const [mainList, setMainList] = useState<recordType[]>([]);
+    const [selectList, setSelectList] = useState<string[]>([]);
     useEffect(() => {
         getDocs(collecData).then(response => {
             const dataList: recordType[] = response.docs.map((doc) => ({
@@ -22,6 +23,19 @@ const UserReq = () => {
             console.log(error.message)
         })
     }, []);
+
+    const handleCheck = (docID: string) => {
+        setSelectList((prev: string[]) => {
+            if (prev.includes(docID)) {
+                return prev.filter((doc) => {
+                    doc !== docID;
+                })
+            } else {
+                return [...prev, docID];
+            }
+        })
+    }
+
 
     return (
         <SafeAreaView style={styles.container} className="bg-background">
