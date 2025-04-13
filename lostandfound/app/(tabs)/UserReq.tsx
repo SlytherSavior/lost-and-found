@@ -1,14 +1,16 @@
-import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
 
 const YourRequests = () => {
     return (
         <SafeAreaView>
-            <Text>userdata</Text>
+            <Text>Your Requests</Text>
         </SafeAreaView>
     )
 }
 
 export default YourRequests
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})

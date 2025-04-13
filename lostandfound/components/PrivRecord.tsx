@@ -5,7 +5,7 @@ import { recordType } from '@/types';
 interface PubRecordType {
     record: recordType;
 }
-
+//gotta select n shit
 export function PubRecord({ record }: PubRecordType) {
     return (
         <View style={styles.card}>
