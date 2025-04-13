@@ -5,11 +5,13 @@ import { db } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
 import { collection, doc, getDocs } from 'firebase/firestore';
 import { recordType } from '@/types'
+import Checkbox from 'expo-checkbox';
 
 const UserReq = () => {
     const collecData = collection(db, "Data");
     const [mainList, setMainList] = useState<recordType[]>([]);
     const [selectList, setSelectList] = useState<string[]>([]);
+    const [isChecked, setChecked] = useState<boolean>(false);
     useEffect(() => {
         getDocs(collecData).then(response => {
             const dataList: recordType[] = response.docs.map((doc) => ({
@@ -24,7 +26,13 @@ const UserReq = () => {
         })
     }, []);
 
-    const handleCheck = (docID: string) => {
+    const handleCheck = (docId: string) => {
+        whenCheck(docId);
+        return setChecked;
+
+    };
+
+    const whenCheck = (docID: string) => {
         setSelectList((prev: string[]) => {
             if (prev.includes(docID)) {
                 return prev.filter((doc) => {
@@ -46,7 +54,15 @@ const UserReq = () => {
             >
                 {mainList.length > 0 ? (
                     mainList.map((doc) => (
-                        <PubRecord record={doc} key={doc.id} />
+                        <View>
+                            <Checkbox
+                                style={styles.checkbox}
+                                value={isChecked}
+                                onValueChange={handleCheck(doc.id)}
+                                color={isChecked ? '#4630EB' : undefined}
+                            />
+                            <PubRecord record={doc} key={doc.id} />
+                        </View>
                     ))
                 ) : (
                     <Text className="text-gray-400 text-center mt-4">No records found.</Text>
@@ -69,4 +85,5 @@ const styles = StyleSheet.create({
         paddingBottom: 32,
         width: '100%',
     },
+    checkbox: {}
 });
