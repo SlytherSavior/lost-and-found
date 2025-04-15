@@ -11,7 +11,7 @@ const UserReq = () => {
     const collecData = collection(db, "Data");
     const [mainList, setMainList] = useState<recordType[]>([]);
     const [selectList, setSelectList] = useState<string[]>([]);
-    const [isChecked, setChecked] = useState<boolean>(false);
+
     useEffect(() => {
         getDocs(collecData).then(response => {
             const dataList: recordType[] = response.docs.map((doc) => ({
@@ -28,7 +28,6 @@ const UserReq = () => {
 
     const handleCheck = (docId: string) => {
         whenCheck(docId);
-        return setChecked;
 
     };
 
@@ -54,14 +53,14 @@ const UserReq = () => {
             >
                 {mainList.length > 0 ? (
                     mainList.map((doc) => (
-                        <View>
+                        <View key={doc.id}>
                             <Checkbox
                                 style={styles.checkbox}
-                                value={isChecked}
-                                onValueChange={handleCheck(doc.id)}
-                                color={isChecked ? '#4630EB' : undefined}
+                                value={selectList.includes(doc.id)}
+                                onValueChange={() => handleCheck(doc.id)}
+                                color={selectList.includes(doc.id) ? '#4630EB' : undefined}
                             />
-                            <PubRecord record={doc} key={doc.id} />
+                            <PubRecord record={doc} />
                         </View>
                     ))
                 ) : (
