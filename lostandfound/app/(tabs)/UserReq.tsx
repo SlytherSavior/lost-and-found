@@ -26,17 +26,13 @@ const UserReq = () => {
         })
     }, []);
 
-    const handleCheck = (docId: string) => {
-        whenCheck(docId);
 
-    };
 
     const whenCheck = (docID: string) => {
         setSelectList((prev: string[]) => {
             if (prev.includes(docID)) {
-                return prev.filter((doc) => {
-                    doc !== docID;
-                })
+                return prev.filter((doc) =>
+                    doc !== docID)
             } else {
                 return [...prev, docID];
             }
@@ -57,7 +53,7 @@ const UserReq = () => {
                             <Checkbox
                                 style={styles.checkbox}
                                 value={selectList.includes(doc.id)}
-                                onValueChange={() => handleCheck(doc.id)}
+                                onValueChange={() => whenCheck(doc.id)}
                                 color={selectList.includes(doc.id) ? '#4630EB' : undefined}
                             />
                             <PubRecord record={doc} />
