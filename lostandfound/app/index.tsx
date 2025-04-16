@@ -6,6 +6,7 @@ export default function Index() {
     <View className="flex-1 justify-center items-center bg-background">
       <Text className="text-primary font-bold">Welcome to lost and found app</Text>
       <Link className="text-2xl" href="/(tabs)/Guidelines">Go Guidelines</Link>
+      <Link className="text-2xl" href="/login">Go Login</Link>
     </View>
   );
 }
