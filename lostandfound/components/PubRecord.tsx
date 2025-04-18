@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import React from 'react';
 import { recordType } from '@/types';
 
@@ -15,20 +15,24 @@ export function PubRecord({ record }: PubRecordType) {
             </View>
             <Text style={styles.description}>{record.data.Description}</Text>
             <View style={styles.footer}>
-                <Text style={styles.uploader}>Uploaded by: {record.data.Uploader}</Text>
+                <Text className="font-bold" style={styles.uploader}>Uploaded by: {record.data.Uploader}</Text>
             </View>
         </View>
     );
 }
 
+const screenWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#fdfdfd',
-        margin: 12,
+        backgroundColor: '#fff',
+        marginVertical: 8,
+        alignSelf: 'center',
+        width: screenWidth - 32, 
         padding: 16,
         borderRadius: 16,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.1,
         shadowRadius: 6,
         elevation: 5,
@@ -36,34 +40,37 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 8,
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        flexShrink: 1,
-        color: '#333',
-    },
-    category: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: '#777',
-        alignSelf: 'center',
-    },
-    description: {
-        fontSize: 16,
-        color: '#444',
+        alignItems: 'center',
         marginBottom: 10,
     },
+    title: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#1e293b', 
+        flexShrink: 1,
+        marginRight: 10,
+    },
+    category: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: '#64748b', 
+        backgroundColor: '#f1f5f9',
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        borderRadius: 8,
+    },
+    description: {
+        fontSize: 15,
+        color: '#475569', 
+        marginBottom: 12,
+    },
     footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: '#e2e8f0',
         paddingTop: 10,
     },
     uploader: {
-        fontSize: 14,
-        color: '#555',
+        fontSize: 13,
+        color: '#94a3b8', 
     },
 });
