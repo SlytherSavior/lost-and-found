@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import { intializeAuth } from 'firebase/auth';
 
 
 // Your web app's Firebase configuration
@@ -38,5 +39,6 @@ getDocs(collectionRef).then(response => {
     console.log(list);
 })
 // dataList()
+const auth = intializeAuth(app);
 
-export { db };
+export { db, auth };
