@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
-import { intializeAuth } from 'firebase/auth';
-
+import { initializeAuth } from 'firebase/auth';
+import { getReactNativePersistence } from '@firebase/auth/dist/rn/index.js';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,7 +18,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
+export const db = getFirestore(app);
+
 // const dataList = async () => {
 //     const collectionRef = collection(db, "Data");
 //     const collectionSnap = await getDocs(collectionRef);
@@ -39,6 +44,3 @@ getDocs(collectionRef).then(response => {
     console.log(list);
 })
 // dataList()
-const auth = intializeAuth(app);
-
-export { db, auth };
