@@ -1,12 +1,9 @@
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import React from 'react';
-import { recordType } from '@/types';
 
-interface PubRecordType {
-    record: recordType;
-}
 
-export function PubRecord({ record }: PubRecordType) {
+
+export function PubRecord({ record }: any) {
     return (
         <View style={styles.card}>
             <View style={styles.header}>
@@ -15,7 +12,7 @@ export function PubRecord({ record }: PubRecordType) {
             </View>
             <Text style={styles.description}>{record.data.Description}</Text>
             <View style={styles.footer}>
-                <Text className="font-bold" style={styles.uploader}>Uploaded by: {record.data.Uploader}</Text>
+                <Text style={styles.uploader}>Uploader Name: {record.data.Uploader}</Text>
             </View>
         </View>
     );
@@ -25,10 +22,10 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: '#ffffff', //white 
         marginVertical: 8,
         alignSelf: 'center',
-        width: screenWidth - 32, 
+        width: screenWidth - 32,
         padding: 16,
         borderRadius: 16,
         shadowColor: '#000',
@@ -45,32 +42,32 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18,
-        fontWeight: 'bold',
-        color: '#1e293b', 
+        fontWeight: '800', // heavy font weight for titles
+        color: 'buttonText',
         flexShrink: 1,
         marginRight: 10,
     },
     category: {
         fontSize: 13,
-        fontWeight: '600',
-        color: '#64748b', 
-        backgroundColor: '#f1f5f9',
+        fontWeight: '600', // medium weight for the category label
+        color: '#94a3b8', // muted color
+        backgroundColor: '#f1f5f9', // muted background for the category
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 8,
     },
     description: {
         fontSize: 15,
-        color: '#475569', 
+        color: '#64748b', // slate-400 for description text
         marginBottom: 12,
     },
     footer: {
         borderTopWidth: 1,
-        borderTopColor: '#e2e8f0',
+        borderTopColor: '#e2e8f0', // light border color for separation
         paddingTop: 10,
     },
     uploader: {
         fontSize: 13,
-        color: '#94a3b8', 
+        color: '#94a3b8', // muted color for uploader text
     },
 });
