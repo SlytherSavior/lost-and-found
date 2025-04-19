@@ -38,7 +38,7 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await signInWithEmailAndPassword(auth, email, password);
-          if (user) router.replace("/(tabs)/Home");
+          if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
           console.log(error);
           alert("Sign in failed: " + error.message);
@@ -58,7 +58,7 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await createUserWithEmailAndPassword(auth, email, password);
-          if (user) router.replace("/(tabs)/Home");
+          if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
           console.log(error);
           alert("Sign up failed: " + error.message);
@@ -76,10 +76,10 @@ export default function Index() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1">      <SafeAreaView className="flex-1 justify-center bg-background px-6">
+        className="flex-1">
+        <SafeAreaView className="flex-1 justify-center bg-background px-6">
           <View className="w-full max-w-md mx-auto">
 
-            {/* Welcome Box */}
             <View className="bg-primary/10 p-6 rounded-2xl mb-8">
               <Text className="text-2xl font-bold text-primary text-center">
                 Welcome to Lost & Found
@@ -89,12 +89,10 @@ export default function Index() {
               </Text>
             </View>
 
-            {/* Login/Create Title */}
             <Text className="text-3xl font-bold text-center text-text mb-8">
               Login or Create Account
             </Text>
 
-            {/* Email Input */}
             <TextInput
               placeholder="Email"
               value={email}
@@ -108,7 +106,6 @@ export default function Index() {
               <Text className="text-red-500 mb-2 ml-1 text-sm">⚠️ Enter a valid email address</Text>
             )}
 
-            {/* Password Input */}
             <TextInput
               placeholder="Password"
               value={password}
@@ -121,7 +118,6 @@ export default function Index() {
               <Text className="text-red-500 mb-4 ml-1 text-sm">⚠️ Password cannot be empty</Text>
             )}
 
-            {/* Log In Button */}
             <TouchableOpacity
               onPress={signIn}
               className="bg-primary py-3 rounded-xl mb-3"
@@ -131,7 +127,6 @@ export default function Index() {
               </Text>
             </TouchableOpacity>
 
-            {/* Sign Up Button */}
             <TouchableOpacity
               onPress={signUp}
               className="bg-primary/10 py-3 rounded-xl"
