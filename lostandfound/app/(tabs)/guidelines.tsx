@@ -1,65 +1,53 @@
-import {
-    StyleSheet,
-    Text,
-    SafeAreaView,
-    View,
-    ScrollView,
-} from 'react-native';
+import { Text, SafeAreaView, View, ScrollView } from 'react-native';
 import React from 'react';
 
-const guidelines = () => {
+const Guidelines = () => {
     return (
-        <SafeAreaView style={styles.safeArea} className="bg-background">
-            <ScrollView contentContainerStyle={styles.container} className="bg-background">
-                <View style={styles.guidelinesContainer}>
-                    <Text style={styles.title}>Guidelines to Follow</Text>
-                    <Text style={styles.subtitle}>
-                        Please read these guidelines carefully before adding any lost / found items.
+        <SafeAreaView className="flex-1 bg-background">
+            <ScrollView
+                contentContainerStyle={{ alignItems: 'center' }}
+                className="py-8 px-5"
+            >
+                <View className="bg-surface rounded-3xl p-6 w-full max-w-xl shadow-lg border border-border">
+                    <Text className="text-3xl font-extrabold text-primary text-center mb-3">
+                        📚 Guidelines
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Labeling:</Text> Make sure the form is
-                        correctly labeled:
-                        {'\n'}
-                        - "Lost" if you've lost the item.
-                        {'\n'}
-                        - "Found" if you found an item whose owner you do not know.
+                    <Text className="text-base text-muted text-center mb-6">
+                        Please read these instructions before submitting a request for a Lost or Found item.
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Resolution Status:</Text> Indicate
-                        clearly whether the request has been resolved:
-                        {'\n'}
-                        - Has the item been found (if lost)?
-                        {'\n'}
-                        - Has the item been returned to the actual owner (if found)?
+                    <View className="h-0.5 bg-border mb-6 w-full" />
+
+
+                    <Text className="text-base text-text mb-5 leading-7">
+                        <Text className="font-bold text-primary">🏷 Labeling:</Text> Tag the request post correctly:
+                        {'\n'}• <Text className="italic text-muted">"Lost"</Text> — if the item is missing.
+                        {'\n'}• <Text className="italic text-muted">"Found"</Text> — if you discovered something.
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Description Details:</Text> In the
-                        description, provide the following information:
-                        {'\n'}
-                        - Where did you find the item?
-                        {'\n'}
-                        - In which place did you keep the item? (Be specific)
-                        {'\n'}
-                        - Your contact information (phone number or email).
+                    <Text className="text-base text-text mb-5 leading-7">
+                        <Text className="font-bold text-primary">✅ Resolution Status:</Text>
+                        <Text>From the requests tab, select any requests that are resolved and mark them accordingly.</Text>
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Accuracy:</Text> Ensure that all the
-                        information you provide is accurate and truthful.
+                    <Text className="text-base text-text mb-5 leading-7">
+                        <Text className="font-bold text-primary">📝 Description Details:</Text> Include:
+                        {'\n'}• Location it was lost/found.
+                        {'\n'}• Where it is now.
+                        {'\n'}• How to reach you (email or phone).
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Privacy:</Text> Be mindful of the
-                        information you share. Do not include any sensitive personal
-                        details that are not necessary.
+                    <Text className="text-base text-text mb-5 leading-7">
+                        <Text className="font-bold text-primary">🔍 Accuracy:</Text> Be specific and truthful.
                     </Text>
 
-                    <Text style={styles.guideline}>
-                        <Text style={styles.bold}>Contact:</Text> Provide a reliable way for
-                        people to contact you regarding the item.
+                    <Text className="text-base text-text mb-5 leading-7">
+                        <Text className="font-bold text-primary">🔒 Privacy:</Text> Do not overshare private info.
+                    </Text>
+
+                    <Text className="text-base text-text leading-7">
+                        <Text className="font-bold text-primary">📞 Contact:</Text> Make sure your contact details are reachable.
                     </Text>
                 </View>
             </ScrollView>
@@ -67,55 +55,4 @@ const guidelines = () => {
     );
 };
 
-export default guidelines;
-
-const styles = StyleSheet.create({
-    safeArea: {
-        flex: 1,
-        backgroundColor: '#f0f0f0', // Light background for the whole screen
-    },
-    container: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 20,
-    },
-    guidelinesContainer: {
-        backgroundColor: '#fff', // White background for the guidelines box
-        padding: 20,
-        borderRadius: 10, // Rounded corners
-        width: '90%', // Adjust width as needed
-        maxWidth: 600, // Maximum width
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5, // for Android shadow
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
-        textAlign: 'center',
-    },
-    subtitle: {
-        fontSize: 16,
-        color: '#666',
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    guideline: {
-        fontSize: 16,
-        color: '#444',
-        marginBottom: 15,
-        lineHeight: 24,
-    },
-    bold: {
-        fontWeight: 'bold',
-        color: '#222',
-    },
-});
+export default Guidelines;
