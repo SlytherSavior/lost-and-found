@@ -35,12 +35,12 @@ export const db = getFirestore(app);
 //     })
 //     return collectionSnap;
 // };
-const collectionRef = collection(db, "Data");
-getDocs(collectionRef).then(response => {
-    const list = response.docs.map((doc) => ({
-        data: doc.data(),
-        id: doc.id,
-    }))
-    console.log(list);
-})
+// const collectionRef = collection(db, "Data");
+// getDocs(collectionRef).then(response => {
+//     const list = response.docs.map((doc) => ({
+//         data: doc.data(),
+//         id: doc.id,
+//     }))
+//     console.log(list);
+// })
 // dataList()
