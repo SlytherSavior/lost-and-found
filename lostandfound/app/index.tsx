@@ -13,24 +13,19 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [visible, setVisible] = useState<boolean>(false);
-  const [passVisible, setPassVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [passVisible, setPassVisible] = useState(false);
+  const [focusedInput, setFocusedInput] = useState<"email" | "password" | null>(null);
 
-  const validateEmail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePass = () => {
-    return password.trim() !== "";
-  };
+  const validateEmail = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePass = () => password.trim() !== "";
 
   const signIn = async () => {
     if (validateEmail()) {
@@ -40,7 +35,6 @@ export default function Index() {
           const user = await signInWithEmailAndPassword(auth, email, password);
           if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
-          console.log(error);
           alert("Sign in failed: " + error.message);
         }
       } else {
@@ -60,7 +54,6 @@ export default function Index() {
           const user = await createUserWithEmailAndPassword(auth, email, password);
           if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
-          console.log(error);
           alert("Sign up failed: " + error.message);
         }
       } else {
@@ -75,9 +68,10 @@ export default function Index() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        className="flex-1">
-        <SafeAreaView className="flex-1 justify-center bg-background px-6">
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex-1"
+      >
+        <SafeAreaView className="flex-1 bg-background px-6 justify-center">
           <View className="w-full max-w-md mx-auto">
 
             <View className="bg-primary/10 p-6 rounded-2xl mb-8">
@@ -90,20 +84,25 @@ export default function Index() {
             </View>
 
             <Text className="text-3xl font-bold text-center text-text mb-8">
-              Login or Create Account
+              Log In or Sign Up
             </Text>
 
             <TextInput
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
-              className="h-12 px-4 mb-2 rounded-xl bg-surface text-text border border-border"
+              onFocus={() => setFocusedInput("email")}
+              onBlur={() => setFocusedInput(null)}
               keyboardType="email-address"
               autoCapitalize="none"
               placeholderTextColor="#9ca3af"
+              className={`h-12 px-4 mb-2 rounded-xl bg-surface text-text border ${focusedInput === "email" ? "border-primary" : "border-border"
+                }`}
             />
             {visible && (
-              <Text className="text-red-500 mb-2 ml-1 text-sm">⚠️ Enter a valid email address</Text>
+              <Text className="text-red-500 mb-2 ml-1 text-sm">
+                ⚠️ Enter a valid email address
+              </Text>
             )}
 
             <TextInput
@@ -111,11 +110,16 @@ export default function Index() {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
-              className="h-12 px-4 mb-2 rounded-xl bg-surface text-text border border-border"
+              onFocus={() => setFocusedInput("password")}
+              onBlur={() => setFocusedInput(null)}
               placeholderTextColor="#9ca3af"
+              className={`h-12 px-4 mb-2 rounded-xl bg-surface text-text border ${focusedInput === "password" ? "border-primary" : "border-border"
+                }`}
             />
             {passVisible && (
-              <Text className="text-red-500 mb-4 ml-1 text-sm">⚠️ Password cannot be empty</Text>
+              <Text className="text-red-500 mb-4 ml-1 text-sm">
+                ⚠️ Password cannot be empty
+              </Text>
             )}
 
             <TouchableOpacity
