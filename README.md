@@ -30,8 +30,12 @@ I built this app as one of my first projects to learn by building. I learned the
 ![](photos/IMG_1590.jpg)  
 ![](photos/IMG_1591.jpg)  
 ![](photos/IMG_1592.jpg)  
-![](photos/IMG_1593.jpg)
-
+![](photos/IMG_1593.jpg)  
 
 ---
 
+## 🤝 Open Source & Contributions
+
+This project is completely open source and I encourage anyone to fork, adapt, or contribute to it for their own school or community. I’m open to suggestions, feedback, and ideas!
+
+📩 Contact me at **[contact@shrijanpoudel.com.np](mailto:contact@shrijanpoudel.com.np)**  
