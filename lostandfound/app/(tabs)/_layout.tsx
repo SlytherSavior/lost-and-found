@@ -1,49 +1,55 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { Tabs } from 'expo-router'
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
-// sadly had to use so many icon imports need a better convention :(
-
-
 
 const _layout = () => {
     return (
-        <Tabs>
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    backgroundColor: '#1e293b',
+                    borderTopWidth: 0,
+                    elevation: 0,
+                },
+                tabBarActiveTintColor: '#3b82f6',
+                tabBarInactiveTintColor: '#94a3b8',
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                },
+            }}
+        >
             <Tabs.Screen
                 name="Home"
                 options={{
-                    headerShown: false,
                     title: "Home",
-                    tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
-                }} />
+                    tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
+                }}
+            />
             <Tabs.Screen
                 name="Guidelines"
                 options={{
-                    headerShown: false,
                     title: "Guidelines",
-                    tabBarIcon: () => <Ionicons name="document-text-outline" size={24} color="black" />,
-                }} />
+                    tabBarIcon: ({ color }) => <Ionicons name="document-text-outline" size={24} color={color} />,
+                }}
+            />
             <Tabs.Screen
                 name="NewReq"
                 options={{
-                    headerShown: false,
                     title: "New Request",
-                    tabBarIcon: () => <AntDesign name="pluscircleo" size={23} color="black" />,
-                }} />
+                    tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={23} color={color} />,
+                }}
+            />
             <Tabs.Screen
                 name="UserReq"
                 options={{
-                    headerShown: false,
                     title: "Your Requests",
-                    tabBarIcon: () => <MaterialIcons name="history" size={29} color="black" />,
-                }} />
+                    tabBarIcon: ({ color }) => <MaterialIcons name="history" size={29} color={color} />,
+                }}
+            />
         </Tabs>
     )
 }
 
-export default _layout
-
-const styles = StyleSheet.create({})
+export default _layout;
