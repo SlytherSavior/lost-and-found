@@ -22,7 +22,7 @@ Whether you've misplaced your water bottle or found someone else's calculator, t
 
 ## 🎯 Purpose
 
-I built this app as one of my first projects after coming out of tutorial hell. I learned the fundamentals of React Native, Firebase, and Firestore side by side while building this app to solve a real problem at school.
+I built this app as one of my first projects to learn by building. I learned the fundamentals of React Native, Firebase, and Firestore side by side while building this app to solve a real problem at school.
 
 ## 📸 Screenshots
 
