@@ -1,4 +1,5 @@
 import { auth } from "@/firebaseConfig";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@firebase/auth";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -147,18 +148,22 @@ export default function Index() {
 
             <TouchableOpacity
               onPress={signIn}
-              className="bg-primary py-3 rounded-xl mb-3"
+              className="bg-primary py-3 rounded-xl mb-3 flex-row justify-center items-center space-x-2"
             >
-              <Text className="text-center text-white font-semibold text-base">
+              <Text className="mr-2">
+                <Entypo name="login" size={20} color="white" />
+              </Text>
+              <Text className="text-white font-semibold text-base">
                 Log In
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={signUp}
-              className="bg-primary/10 py-3 rounded-xl"
+              className="bg-primary/10 py-3 rounded-xl flex-row justify-center items-center space-x-2"
             >
-              <Text className="text-center text-primary font-semibold text-base">
+              <AntDesign name="adduser" size={20} color="#2563eb" />
+              <Text className="text-primary font-semibold text-base">
                 Create Account
               </Text>
             </TouchableOpacity>

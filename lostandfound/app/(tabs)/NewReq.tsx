@@ -3,6 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Keyboa
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
+import Icon from '@expo/vector-icons/Ionicons';
+
 
 const NewRequest = () => {
     const [Title, setTitle] = useState('');
@@ -87,8 +89,12 @@ const NewRequest = () => {
                             />
 
                             <TouchableOpacity style={styles.button} onPress={addData}>
-                                <Text style={styles.buttonText}>Submit Request</Text>
+                                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                                    <Icon name="send" size={20} color="#fff" />
+                                    <Text style={styles.buttonText}>Submit Request</Text>
+                                </View>
                             </TouchableOpacity>
+
                         </View>
                     </ScrollView>
                 </SafeAreaView>
@@ -151,7 +157,7 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 999,
-        backgroundColor: 'background',
+        backgroundColor: '#1e293b',
         borderStyle: 'solid',
         borderColor: 'white',
     },
