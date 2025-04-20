@@ -19,11 +19,10 @@ const Guidelines = () => {
 
                     <View className="h-0.5 bg-border mb-6 w-full" />
 
-
                     <Text className="text-base text-text mb-5 leading-7">
                         <Text className="font-bold text-primary">🏷 Labeling:</Text> Tag the request post correctly:
                         {'\n'}• <Text className="italic text-muted">"Lost"</Text> — if the item is missing.
-                        {'\n'}• <Text className="italic text-muted">"Found"</Text> — if you discovered something.
+                        {'\n'}• <Text className="italic text-muted">"Found"</Text> — if you found an item with unknown owner.
                     </Text>
 
                     <Text className="text-base text-text mb-5 leading-7">
@@ -42,12 +41,13 @@ const Guidelines = () => {
                         <Text className="font-bold text-primary">🔍 Accuracy:</Text> Be specific and truthful.
                     </Text>
 
-                    <Text className="text-base text-text mb-5 leading-7">
-                        <Text className="font-bold text-primary">🔒 Privacy:</Text> Do not overshare private info.
+                    <Text className="text-base text-text leading-7 mb-5">
+                        <Text className="font-bold text-primary">📞 Contact:</Text> Make sure your contact details are reachable.
                     </Text>
 
+
                     <Text className="text-base text-text leading-7">
-                        <Text className="font-bold text-primary">📞 Contact:</Text> Make sure your contact details are reachable.
+                        <Text className="font-bold text-primary">❌ Fake Info:</Text> Any fake information, or unethical descriptions will lead to the uploader facing strict consequences from the school administration.
                     </Text>
                 </View>
             </ScrollView>
