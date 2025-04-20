@@ -1,19 +1,23 @@
 import { StyleSheet, Text, ScrollView, View, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { db } from '@/firebaseConfig';
+import { auth, db } from '@/firebaseConfig';
 import { PubRecord } from '@/components/PubRecord';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, doc, query, where } from 'firebase/firestore';
 
 const Home = () => {
     const collecData = collection(db, 'Data');
     const [mainList, setMainList] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [focusedInput, setFocusInput] = useState<boolean>(false);
-
+    const user = auth.currentUser;
     useEffect(() => {
+        if (!user) return;
+
+        const queryData = query(collecData, where('userId', '!=', user.uid))
+
         const listen = onSnapshot(
-            collecData,
+            queryData,
             (snapshot) => {
                 const dataList: any[] = snapshot.docs
                     .map((doc) => ({
@@ -65,7 +69,7 @@ const Home = () => {
                         )
                         .map((doc) => <PubRecord record={doc} key={doc.id} />)
                 ) : (
-                    <Text className="text-muted text-center mt-4">No records found.</Text>
+                    <Text className="text-muted text-center mt-4">Request submitted by other students will be displayed here</Text>
                 )}
             </ScrollView>
         </SafeAreaView>
