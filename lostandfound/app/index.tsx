@@ -35,7 +35,7 @@ export default function Index() {
           const user = await signInWithEmailAndPassword(auth, email, password);
           if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
-          alert("Sign in failed: " + error.message);
+          handleAuthError(error.code, "Sign In");
         }
       } else {
         setPassVisible(true);
@@ -54,7 +54,7 @@ export default function Index() {
           const user = await createUserWithEmailAndPassword(auth, email, password);
           if (user?.user) router.replace("/(tabs)/Home");
         } catch (error: any) {
-          alert("Sign up failed: " + error.message);
+          handleAuthError(error.code, "Sign Up");
         }
       } else {
         setPassVisible(true);
@@ -63,6 +63,39 @@ export default function Index() {
     } else {
       setVisible(true);
     }
+  };
+
+  const handleAuthError = (code: string, action: string) => {
+    let message = "An unknown error occurred.";
+
+    switch (code) {
+      case "auth/invalid-email":
+        message = "Please enter a valid email address.";
+        break;
+      case "auth/user-disabled":
+        message = "This user account has been disabled.";
+        break;
+      case "auth/user-not-found":
+        message = "No account found with this email.";
+        break;
+      case "auth/wrong-password":
+        message = "Incorrect password. Please try again.";
+        break;
+      case "auth/email-already-in-use":
+        message = "An account with this email already exists.";
+        break;
+      case "auth/weak-password":
+        message = "Password should be at least 6 characters.";
+        break;
+      case "auth/too-many-requests":
+        message = "Too many attempts. Please try again later.";
+        break;
+      default:
+        message = code.replace("auth/", "").replace(/-/g, " ");
+        break;
+    }
+
+    alert(`${action} failed: ${message}`);
   };
 
   return (
