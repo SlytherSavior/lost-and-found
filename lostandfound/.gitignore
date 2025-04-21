@@ -12,6 +12,10 @@ expo-env.d.ts
 #temporary data
 data.js
 
+app.json
+app.json/
+eas.json
+eas.json/
 #plans 
 plans.txt
 
