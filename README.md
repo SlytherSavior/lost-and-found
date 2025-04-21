@@ -22,7 +22,14 @@ Whether you've misplaced your water bottle or found someone else's calculator, t
 
 ## 🎯 Purpose
 
-I built this app as one of my first projects after coming out of tutorial hell. I learned the fundamentals of React Native, Firebase, and Firestore side by side while building this app to solve a real problem at school.
+I built this app as one of my first projects to learn by building. I learned the fundamentals of React Native, Firebase, and Firestore side by side while building this app to solve a real problem at school. **Anyone can fork and use it for their own school.**
+
+## 🤝 Open Source & Contributions
+
+This project is completely open source and I encourage anyone to fork, adapt, or contribute to it for their own school or community. I’m open to suggestions, feedback, and ideas!
+
+📩 Contact me at **[contact@shrijanpoudel.com.np](mailto:contact@shrijanpoudel.com.np)**  
+---
 
 ## 📸 Screenshots
 
@@ -30,8 +37,7 @@ I built this app as one of my first projects after coming out of tutorial hell. 
 ![](photos/IMG_1590.jpg)  
 ![](photos/IMG_1591.jpg)  
 ![](photos/IMG_1592.jpg)  
-![](photos/IMG_1593.jpg)
-
+![](photos/IMG_1593.jpg)  
 
 ---
 
