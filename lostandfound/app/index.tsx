@@ -16,6 +16,7 @@ export default function Index() {
   const [focusedInput, setFocusedInput] = useState<"email" | "password" | null>(null);
 
   const validateEmail = () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  // const validateEmail = () => /^[^\s@]+@gmail\.com$/.test(email);
   const validatePass = () => password.trim() !== "";
 
   const signIn = async () => {

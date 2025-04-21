@@ -7,6 +7,7 @@ import { collection, getDocs, doc, query, where, updateDoc, onSnapshot } from 'f
 import Checkbox from 'expo-checkbox';
 import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const UserReq = () => {
     const collecData = collection(db, 'Data');
@@ -84,9 +85,11 @@ const UserReq = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title} className="text-primary">Your Requests</Text>
-                <TouchableOpacity onPress={handleSignOut}>
+                <TouchableOpacity onPress={handleSignOut} style={styles.signOutButton}>
+                    <MaterialIcons name="logout" size={18} color="white" style={{ marginRight: 6 }} />
                     <Text style={styles.signOutText}>Sign Out</Text>
                 </TouchableOpacity>
+
             </View>
 
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -130,6 +133,18 @@ const UserReq = () => {
 export default UserReq;
 
 const styles = StyleSheet.create({
+    signOutButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#ef4444',
+        paddingVertical: 8,
+        paddingHorizontal: 5,
+        borderRadius: 12,
+    },
+    iconButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
         backgroundColor: '#0f172a',
@@ -154,12 +169,13 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     signOutText: {
+
         fontSize: 14,
         fontWeight: '600',
-        color: 'black',
+        color: 'white',
         backgroundColor: '#ef4444',
-        paddingVertical: 8,
-        paddingHorizontal: 14,
+        paddingVertical: 3,
+        paddingHorizontal: 1,
         borderRadius: 12,
     },
     markResolvedButton: {
