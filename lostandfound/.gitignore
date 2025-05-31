@@ -9,22 +9,8 @@ dist/
 web-build/
 expo-env.d.ts
 
-#temporary data
-data.js
-
-
-eas.json
-eas.json/
-#plans 
-plans.txt
-
-#learning and practice
-Practice.tsx
-Practice.jsx
-Practice.js
-Practice.ts
-
 # Native
+.kotlin/
 *.orig.*
 *.jks
 *.p8

@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import React from 'react';
 import { auth } from '@/firebaseConfig';
+import React from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
 export function PubRecord({ record }: any) {
 

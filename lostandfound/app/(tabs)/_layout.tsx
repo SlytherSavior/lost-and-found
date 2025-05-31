@@ -21,14 +21,14 @@ const _layout = () => {
             }}
         >
             <Tabs.Screen
-                name="Home"
+                name="home"
                 options={{
                     title: "Home",
                     tabBarIcon: ({ color }) => <AntDesign name="home" size={24} color={color} />,
                 }}
             />
             <Tabs.Screen
-                name="Guidelines"
+                name="guidelines"
                 options={{
                     title: "Guidelines",
                     tabBarIcon: ({ color }) => <Ionicons name="document-text-outline" size={24} color={color} />,

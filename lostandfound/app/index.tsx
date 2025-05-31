@@ -1,6 +1,6 @@
 import { auth } from "@/firebaseConfig";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "@firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { router } from "expo-router";
 import { useState } from "react";
 import {
@@ -25,7 +25,7 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await signInWithEmailAndPassword(auth, email, password);
-          if (user?.user) router.replace("/(tabs)/Home");
+          if (user?.user) router.replace("/(tabs)/home");
         } catch (error: any) {
           handleAuthError(error.code, "Sign In");
         }
@@ -44,7 +44,7 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await createUserWithEmailAndPassword(auth, email, password);
-          if (user?.user) router.replace("/(tabs)/Home");
+          if (user?.user) router.replace("/(tabs)/home");
         } catch (error: any) {
           handleAuthError(error.code, "Sign Up");
         }
@@ -174,3 +174,4 @@ export default function Index() {
     </TouchableWithoutFeedback>
   );
 }
+ 
