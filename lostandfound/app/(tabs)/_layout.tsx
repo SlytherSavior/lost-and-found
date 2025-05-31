@@ -1,7 +1,5 @@
-import { Tabs } from 'expo-router'
-import AntDesign from '@expo/vector-icons/AntDesign';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Tabs } from 'expo-router';
+import { AntDesign, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 const _layout = () => {
     return (
@@ -37,15 +35,22 @@ const _layout = () => {
             <Tabs.Screen
                 name="NewReq"
                 options={{
-                    title: "New Request",
+                    title: "New",
                     tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" size={23} color={color} />,
                 }}
             />
             <Tabs.Screen
                 name="UserReq"
                 options={{
-                    title: "Your Requests",
+                    title: "Requests",
                     tabBarIcon: ({ color }) => <MaterialIcons name="history" size={29} color={color} />,
+                }}
+            />
+            <Tabs.Screen
+                name="profile"
+                options={{
+                    title: "Profile",
+                    tabBarIcon: ({ color }) => <FontAwesome name="user" size={22} color={color} />,
                 }}
             />
         </Tabs>
