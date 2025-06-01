@@ -124,6 +124,9 @@ const Profile = () => {
   };
 
   const handleChangePassword = async () => {
+    
+    setError("");
+    
     if (password.new !== password.confirm) {
       setError("New passwords do not match");
       return;
@@ -134,9 +137,13 @@ const Profile = () => {
       return;
     }
 
+    if (password.current.trim() === "") {
+      setError("Please enter your current password");
+      return;
+    }
+
     try {
       setSaving(true);
-      setError("");
       const user = auth.currentUser;
       
       if (!user || !user.email) {
@@ -144,22 +151,40 @@ const Profile = () => {
         return;
       }
 
-      // Re-authenticate user before changing password
-      const credential = EmailAuthProvider.credential(user.email, password.current);
-      await reauthenticateWithCredential(user, credential);
+      try {
+        const credential = EmailAuthProvider.credential(user.email, password.current);
+        await reauthenticateWithCredential(user, credential);
+      } catch (authError: any) {
+        if (authError.code === "auth/wrong-password") {
+          setError("Current password is incorrect");
+        } else if (authError.code === "auth/too-many-requests") {
+          setError("Too many failed attempts. Please try again later");
+        } else {
+          setError("Authentication failed. Please check your current password");
+        }
+        setSaving(false);
+        alert(`${error}`);
+        return; 
+      }
 
-      // Change password
+      
       await updatePassword(user, password.new);
       
       setPassword({ current: "", new: "", confirm: "" });
-      Alert.alert("Success", "Password updated successfully");
+      
+      Alert.alert(
+        "Success", 
+        "Your password has been updated successfully",
+        [{ text: "OK" }]
+      );
+      
     } catch (error: any) {
       console.error("Error changing password:", error);
       
-      if (error.code === "auth/wrong-password") {
-        setError("Current password is incorrect");
+      if (error.code === "auth/requires-recent-login") {
+        setError("For security, please sign out and sign in again before changing your password");
       } else {
-        setError("Failed to change password. Please try again.");
+        setError("Failed to change password. Please try again later");
       }
     } finally {
       setSaving(false);
