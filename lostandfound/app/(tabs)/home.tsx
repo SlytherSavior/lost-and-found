@@ -4,12 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '@/firebaseConfig';
 import { Record } from '@/components/Record';
 import { collection, onSnapshot, doc, query, where } from 'firebase/firestore';
+import { ActivityIndicator } from 'react-native';
 
 const Home = () => {
     const collecData = collection(db, 'Data');
     const [mainList, setMainList] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [focusedInput, setFocusInput] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const user = auth.currentUser;
     useEffect(() => {
         if (!user) return;
@@ -26,6 +28,7 @@ const Home = () => {
                     }))
                     .filter((data) => data.data.Status !== true);
                 setMainList(dataList);
+                setLoading(false);
             },
             (error) => {
                 console.log('Error fetching real-time updates:', error.message);
@@ -34,6 +37,14 @@ const Home = () => {
 
         return () => listen();
     }, []);
+
+    if (loading) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <ActivityIndicator size="large" color="#2563eb" />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>

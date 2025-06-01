@@ -8,12 +8,14 @@ import Checkbox from 'expo-checkbox';
 import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native';
 
 const UserReq = () => {
     const collecData = collection(db, 'Data');
     const [mainList, setMainList] = useState<any[]>([]);
     const [selectList, setSelectList] = useState<string[]>([]);
     const [selectCount, setSelectCount] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(true);
     const user = auth.currentUser;
     useEffect(() => {
         if (!user) return;
@@ -27,6 +29,7 @@ const UserReq = () => {
             })).filter((doc) => doc.data.Status !== true)
 
             setMainList(records)
+            setLoading(false);
         })
 
         return () => unSub();
@@ -42,20 +45,7 @@ const UserReq = () => {
 
     };
 
-    const fetchData = async () => {
-        if (user) {
-            const queryData = query(collecData, where('userId', '==', user.uid));
-            const data = await getDocs(queryData);
-            setMainList(
-                data.docs.map((doc) => ({
-                    id: doc.id,
-                    data: doc.data(),
-                })).filter((doc) => {
-                    return doc.data.Status !== true;
-                })
-            );
-        }
-    };
+
 
     const whenCheck = (docID: string) => {
         setSelectList((prev: string[]) =>
@@ -72,6 +62,14 @@ const UserReq = () => {
         }
         setSelectList([]);
     };
+
+    if (loading) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <ActivityIndicator size="large" color="#2563eb" />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>

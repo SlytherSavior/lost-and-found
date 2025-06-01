@@ -234,17 +234,6 @@ const Profile = () => {
               <MaterialIcons name="security" size={20} color="#2563eb" /> Change Password
             </Text>
             
-            <View className="mb-4">
-              <Text className="text-muted mb-1">Current Password</Text>
-              <TextInput
-                value={password.current}
-                onChangeText={(text) => setPassword({ ...password, current: text })}
-                onFocus={() => setFocusedInput("currentPass")}
-                onBlur={() => setFocusedInput(null)}
-                secureTextEntry
-                className={`h-12 px-4 rounded-xl bg-background text-text border ${focusedInput === "currentPass" ? "border-primary" : "border-border"}`}
-              />
-            </View>
 
             <View className="mb-4">
               <Text className="text-muted mb-1">New Password</Text>
@@ -254,6 +243,8 @@ const Profile = () => {
                 onFocus={() => setFocusedInput("newPass")}
                 onBlur={() => setFocusedInput(null)}
                 secureTextEntry
+                autoComplete="off"
+                textContentType="oneTimeCode"
                 className={`h-12 px-4 rounded-xl bg-background text-text border ${focusedInput === "newPass" ? "border-primary" : "border-border"}`}
               />
             </View>
@@ -266,7 +257,23 @@ const Profile = () => {
                 onFocus={() => setFocusedInput("confirmPass")}
                 onBlur={() => setFocusedInput(null)}
                 secureTextEntry
+                textContentType="oneTimeCode"
+                autoComplete="off"
                 className={`h-12 px-4 rounded-xl bg-background text-text border ${focusedInput === "confirmPass" ? "border-primary" : "border-border"}`}
+              />
+            </View>
+            
+            <View className="mb-4">
+              <Text className="text-muted mb-1">Current Password</Text>
+              <TextInput
+                value={password.current}
+                onChangeText={(text) => setPassword({ ...password, current: text })}
+                onFocus={() => setFocusedInput("currentPass")}
+                onBlur={() => setFocusedInput(null)}
+                textContentType="oneTimeCode" 
+                secureTextEntry
+                autoComplete="off"
+                className={`h-12 px-4 rounded-xl bg-background text-text border ${focusedInput === "currentPass" ? "border-primary" : "border-border"}`}
               />
             </View>
 
