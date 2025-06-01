@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-nati
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db, auth } from '@/firebaseConfig';
-import { PubRecord } from '@/components/PubRecord';
+import { Record } from '@/components/Record';
 import { collection, getDocs, doc, query, where, updateDoc, onSnapshot } from 'firebase/firestore';
 import Checkbox from 'expo-checkbox';
 import { signOut } from 'firebase/auth';
@@ -65,14 +65,6 @@ const UserReq = () => {
         );
     };
 
-    const handleSignOut = async () => {
-        try {
-            await signOut(auth);
-            router.replace('/');
-        } catch (error: any) {
-            console.error('Sign out error:', error.message);
-        }
-    };
 
     const markAsResolved = async () => {
         for (let id of selectList) {
@@ -85,11 +77,6 @@ const UserReq = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.title} className="text-primary">Your Requests</Text>
-                <TouchableOpacity onPress={handleSignOut} style={styles.signOutButton}>
-                    <MaterialIcons name="logout" size={18} color="white" style={{ marginRight: 6 }} />
-                    <Text style={styles.signOutText}>Sign Out</Text>
-                </TouchableOpacity>
-
             </View>
 
             <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
@@ -110,7 +97,7 @@ const UserReq = () => {
                                     <Text style={styles.checkboxLabel}>Select</Text>
                                 )}
                             </View>
-                            <PubRecord record={doc} />
+                            <Record record={doc} />
                         </View>
                     ))
                 ) : (

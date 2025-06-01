@@ -2,7 +2,7 @@ import { StyleSheet, Text, ScrollView, View, TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '@/firebaseConfig';
-import { PubRecord } from '@/components/PubRecord';
+import { Record } from '@/components/Record';
 import { collection, onSnapshot, doc, query, where } from 'firebase/firestore';
 
 const Home = () => {
@@ -67,7 +67,7 @@ const Home = () => {
                                 doc.data.Title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
                                 doc.data.Description?.toLowerCase().includes(searchQuery.toLowerCase())
                         )
-                        .map((doc) => <PubRecord record={doc} key={doc.id} />)
+                        .map((doc) => <Record record={doc} key={doc.id} />)
                 ) : (
                     <Text className="text-muted text-center mt-4">Request submitted by other students will be displayed here</Text>
                 )}

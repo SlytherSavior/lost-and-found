@@ -149,7 +149,7 @@ const Profile = () => {
     try {
       await signOut(auth);
       router.replace("/");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error signing out:", error);
       setError("Failed to sign out");
     }

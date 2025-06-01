@@ -2,7 +2,7 @@ import { auth } from '@/firebaseConfig';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
-export function PubRecord({ record }: any) {
+export function Record({ record }: any) {
 
     const user = auth.currentUser
 
