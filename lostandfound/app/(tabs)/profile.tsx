@@ -5,7 +5,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "@/firebaseConfig";
 import { 
-  updateProfile, updateEmail, updatePassword, 
+  updateProfile, updatePassword, 
   reauthenticateWithCredential, EmailAuthProvider, signOut 
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
@@ -15,6 +15,11 @@ import { router } from "expo-router";
 const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [initialUserData, setInitialUserData] = useState({
+    displayName: "",
+    email: "",
+    bio: "",
+  });
   const [userData, setUserData] = useState({
     displayName: "",
     email: "",
@@ -27,6 +32,19 @@ const Profile = () => {
   });
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const [error, setError] = useState("");
+  
+  // Check if user made profile changes
+  const hasProfileChanges = () => {
+    return userData.displayName !== initialUserData.displayName || 
+           userData.bio !== initialUserData.bio;
+  };
+  
+  // Check if password fields have valid data
+  const hasPasswordChanges = () => {
+    return password.current.trim() !== "" && 
+           password.new.trim() !== "" && 
+           password.confirm.trim() !== "";
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -39,12 +57,15 @@ const Profile = () => {
 
         const userRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userRef);
-
-        setUserData({
+        
+        const userData = {
           displayName: user.displayName || "",
           email: user.email || "",
           bio: userDoc.exists() ? userDoc.data().bio || "" : "",
-        });
+        };
+
+        setUserData(userData);
+        setInitialUserData(userData); // Store initial state
       } catch (error) {
         console.error("Error fetching user data:", error);
         setError("Failed to load profile data");
@@ -72,10 +93,8 @@ const Profile = () => {
         return;
       }
 
-      // Update display name in Firebase Auth
       await updateProfile(user, { displayName: userData.displayName });
 
-      // Update or create user document in Firestore
       const userRef = doc(db, "users", user.uid);
       const userDoc = await getDoc(userRef);
 
@@ -92,6 +111,8 @@ const Profile = () => {
           createdAt: new Date()
         });
       }
+      
+      setInitialUserData({...userData});
       
       Alert.alert("Success", "Profile updated successfully");
     } catch (error) {
@@ -215,15 +236,19 @@ const Profile = () => {
 
             <TouchableOpacity
               onPress={handleSaveProfile}
-              disabled={saving}
-              className="bg-primary py-3 rounded-xl flex-row justify-center items-center"
+              disabled={saving || !hasProfileChanges()}
+              className={`py-3 rounded-xl flex-row justify-center items-center ${
+                hasProfileChanges() ? "bg-primary" : "bg-primary/40"
+              }`}
             >
               {saving ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
                 <>
                   <Feather name="save" size={18} color="white" />
-                  <Text className="text-white font-semibold text-base ml-2">Save Profile</Text>
+                  <Text className="text-white font-semibold text-base ml-2">
+                    {hasProfileChanges() ? "Save Profile" : "No Changes"}
+                  </Text>
                 </>
               )}
             </TouchableOpacity>
@@ -279,15 +304,19 @@ const Profile = () => {
 
             <TouchableOpacity
               onPress={handleChangePassword}
-              disabled={saving}
-              className="bg-primary/90 py-3 rounded-xl flex-row justify-center items-center"
+              disabled={saving || !hasPasswordChanges()}
+              className={`py-3 rounded-xl flex-row justify-center items-center ${
+                hasPasswordChanges() ? "bg-primary/90" : "bg-primary/40"
+              }`}
             >
               {saving ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
                 <>
                   <MaterialIcons name="lock" size={18} color="white" />
-                  <Text className="text-white font-semibold text-base ml-2">Update Password</Text>
+                  <Text className="text-white font-semibold text-base ml-2">
+                    {hasPasswordChanges() ? "Update Password" : "Enter Password Details"}
+                  </Text>
                 </>
               )}
             </TouchableOpacity>
