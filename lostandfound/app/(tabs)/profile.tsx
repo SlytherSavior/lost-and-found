@@ -33,13 +33,11 @@ const Profile = () => {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
   const [error, setError] = useState("");
   
-  // Check if user made profile changes
   const hasProfileChanges = () => {
     return userData.displayName !== initialUserData.displayName || 
            userData.bio !== initialUserData.bio;
   };
   
-  // Check if password fields have valid data
   const hasPasswordChanges = () => {
     return password.current.trim() !== "" && 
            password.new.trim() !== "" && 

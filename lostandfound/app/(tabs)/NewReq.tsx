@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import Icon from '@expo/vector-icons/Ionicons';
-
+import { router } from 'expo-router';
+import { getDoc, doc } from 'firebase/firestore';
 
 const NewRequest = () => {
     const [Title, setTitle] = useState('');
@@ -13,6 +14,7 @@ const NewRequest = () => {
     const [Category, setCategory] = useState<'Lost' | 'Found'>('Lost');
     const user = auth.currentUser;
     const collecData = collection(db, "Data");
+
 
     const addData = async () => {
         if (user) {
@@ -34,6 +36,29 @@ const NewRequest = () => {
             alert("Hey u hacker tryna play w me ?");
         }
     };
+
+     useEffect(() => {
+        const fetchUserData = async () => {
+          try {
+            const user = auth.currentUser;
+            if (!user) {
+              router.replace("/");
+              return;
+            }
+    
+            const userRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userRef);
+            
+            const displayName = user.displayName
+            setUploader(displayName || "Anonymous User");
+            
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+          } 
+        };
+    
+        fetchUserData();
+      }, []);
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -76,15 +101,6 @@ const NewRequest = () => {
                                 onChangeText={setDescription}
                                 multiline
                                 placeholder="Where was the item lost/found, description."
-                                placeholderTextColor="#94a3b8"
-                            />
-
-                            <Text style={styles.label}>Your Name</Text>
-                            <TextInput
-                                style={styles.input}
-                                value={Uploader}
-                                onChangeText={setUploader}
-                                placeholder="Slyther Savior"
                                 placeholderTextColor="#94a3b8"
                             />
 

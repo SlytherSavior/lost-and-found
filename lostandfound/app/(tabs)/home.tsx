@@ -23,10 +23,11 @@ const Home = () => {
             (snapshot) => {
                 const dataList: any[] = snapshot.docs
                     .map((doc) => ({
+                        infoStatus: false,
                         id: doc.id,
                         data: doc.data(),
                     }))
-                    .filter((data) => data.data.Status !== true);
+                    .filter((doc) => doc.data.Status !== true);
                 setMainList(dataList);
                 setLoading(false);
             },
