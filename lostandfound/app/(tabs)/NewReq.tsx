@@ -5,7 +5,7 @@ import { auth, db } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import Icon from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
-import { getDoc, doc } from 'firebase/firestore';
+import {  doc } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
 import { ActivityIndicator } from 'react-native';
 

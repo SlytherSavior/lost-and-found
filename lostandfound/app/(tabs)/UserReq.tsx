@@ -3,11 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db, auth } from '@/firebaseConfig';
 import { Record } from '@/components/Record';
-import { collection, getDocs, doc,deleteDoc, query, where, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc,deleteDoc, query, where, onSnapshot } from 'firebase/firestore';
 import Checkbox from 'expo-checkbox';
-import { signOut } from 'firebase/auth';
-import { router } from 'expo-router';
-import { MaterialIcons } from '@expo/vector-icons';
 import { ActivityIndicator } from 'react-native';
 
 const UserReq = () => {
