@@ -17,6 +17,7 @@ const NewRequest = () => {
     const user = auth.currentUser;
     const collecData = collection(db, "Data");
     const [loading, setLoading] = useState(true);
+    const [uploaderBio, setUploaderBio] = useState('');
 
 
     const addData = async () => {
@@ -52,7 +53,8 @@ const NewRequest = () => {
       const unsubscribe = onSnapshot(userRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data();
-          setUploader(userData.displayName);
+            setUploader(userData.displayName);
+            setUploaderBio(userData.bio);
         }
         setLoading(false);
       }, (error) => {
@@ -80,10 +82,10 @@ const NewRequest = () => {
         );
     }
 
-    if (Uploader === '') {
+    if (Uploader === '' || uploaderBio === '') {
         return (
             <SafeAreaView style={styles.container}>
-                <Text style={{ color: '#f1f5f9', textAlign: 'center' }}>Please set a username for yourself to publish a request</Text>
+                <Text style={{ color: '#f1f5f9', textAlign: 'center' }}>Please set a Username and Contact Information for yourself to publish a request.</Text>
             </SafeAreaView>
         );
     }

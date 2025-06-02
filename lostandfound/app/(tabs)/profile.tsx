@@ -91,6 +91,11 @@ const Profile = () => {
         return;
       }
 
+      if (userData.bio.trim() === "") {
+        setError("Contact Information cannot be empty");
+        return;
+      }
+
       await updateProfile(user, { displayName: userData.displayName });
 
       const userRef = doc(db, "users", user.uid);
@@ -244,7 +249,7 @@ const Profile = () => {
             </View>
 
             <View className="mb-6">
-              <Text className="text-muted mb-1">Bio</Text>
+              <Text className="text-muted mb-1">Contact Information</Text>
               <TextInput
                 value={userData.bio}
                 onChangeText={(text) => setUserData({ ...userData, bio: text })}
