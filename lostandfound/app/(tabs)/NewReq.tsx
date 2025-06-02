@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, 
+  Keyboard, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '@/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import Icon from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
-import {  doc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
 import { onSnapshot } from 'firebase/firestore';
 import { ActivityIndicator } from 'react-native';
 
@@ -14,32 +15,63 @@ const NewRequest = () => {
     const [Uploader, setUploader] = useState('');
     const [Description, setDescription] = useState('');
     const [Category, setCategory] = useState<'Lost' | 'Found'>('Lost');
+    const [isSubmitting, setIsSubmitting] = useState(false); 
     const user = auth.currentUser;
     const collecData = collection(db, "Data");
     const [loading, setLoading] = useState(true);
     const [uploaderBio, setUploaderBio] = useState('');
 
-
-    const addData = async () => {
-        if (user) {
-            await addDoc(collecData, {
-                Title,
-                Uploader,
-                Category,
-                Description,
-                Status: false,
-                userId: user?.uid,
-            });
-            console.log(`data added by ${user.email}`);
-            setTitle('');
-            setDescription('');
-            setCategory('Lost');
-        } else {
-            console.log("No user logged in");
-            alert("Hey u hacker tryna play w me ?");
-        }
+    const isFormValid = () => {
+        return Title.trim() !== '' && Description.trim() !== '';
     };
 
+    const addData = async () => {
+        if (!isFormValid()) {
+            Alert.alert("Error", "Please fill in all fields");
+            return;
+        }
+        
+        setIsSubmitting(true);
+        
+        try {
+            if (user) {
+                await addDoc(collecData, {
+                    Title,
+                    Uploader,
+                    Category,
+                    Description,
+                    Status: false,
+                    userId: user?.uid,
+                });
+                
+                setTitle('');
+                setDescription('');
+                setCategory('Lost');
+                
+                Alert.alert(
+                    "Success", 
+                    "Your request has been submitted successfully!",
+                    [
+                        { 
+                            text: "OK", 
+                            onPress: () => console.log("OK Pressed") 
+                        }
+                    ]
+                );
+            } else {
+                console.log("No user logged in");
+                Alert.alert("Error", "You must be logged in to submit a request");
+            }
+        } catch (error) {
+            console.error("Error adding document:", error);
+            Alert.alert(
+                "Error",
+                "Something went wrong. Please try again later."
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     useEffect(() => {
       const user = auth.currentUser;
@@ -65,14 +97,13 @@ const NewRequest = () => {
       return () => unsubscribe(); 
     }, []);
     
-
-      if (loading) {
+    if (loading) {
         return (
             <SafeAreaView style={styles.container}>
                 <ActivityIndicator size="large" color="#2563eb" />
             </SafeAreaView>
         );
-      }
+    }
     
     if (!user) {
         return (
@@ -107,6 +138,7 @@ const NewRequest = () => {
                                 onChangeText={setTitle}
                                 placeholder="e.g. Blue bottle"
                                 placeholderTextColor="#94a3b8"
+                                editable={!isSubmitting}
                             />
 
                             <Text style={styles.label}>Category</Text>
@@ -114,10 +146,19 @@ const NewRequest = () => {
                                 {['Lost', 'Found'].map((option) => (
                                     <TouchableOpacity
                                         key={option}
-                                        style={[styles.radioOption, Category === option && styles.selectedOption]}
-                                        onPress={() => setCategory(option as 'Lost' | 'Found')}
+                                        style={[
+                                            styles.radioOption, 
+                                            Category === option && styles.selectedOption,
+                                            isSubmitting && styles.disabledOption
+                                        ]}
+                                        onPress={() => !isSubmitting && setCategory(option as 'Lost' | 'Found')}
+                                        disabled={isSubmitting}
                                     >
-                                        <Text style={[styles.radioText, Category === option && styles.selectedText]}>
+                                        <Text style={[
+                                            styles.radioText, 
+                                            Category === option && styles.selectedText,
+                                            isSubmitting && styles.disabledText
+                                        ]}>
                                             {option}
                                         </Text>
                                     </TouchableOpacity>
@@ -132,15 +173,28 @@ const NewRequest = () => {
                                 multiline
                                 placeholder="Where was the item lost/found, description."
                                 placeholderTextColor="#94a3b8"
+                                editable={!isSubmitting}
                             />
 
-                            <TouchableOpacity style={styles.button} onPress={addData}>
+                            <TouchableOpacity 
+                                style={[
+                                    styles.button, 
+                                    (!isFormValid() || isSubmitting) && styles.buttonDisabled
+                                ]} 
+                                onPress={addData}
+                                disabled={!isFormValid() || isSubmitting}
+                            >
                                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                                    <Icon name="send" size={20} color="#fff" />
-                                    <Text style={styles.buttonText}>Submit Request</Text>
+                                    {isSubmitting ? (
+                                        <ActivityIndicator size="small" color="#fff" />
+                                    ) : (
+                                        <Icon name="send" size={20} color="#fff" />
+                                    )}
+                                    <Text style={styles.buttonText}>
+                                        {isSubmitting ? "Submitting..." : "Submit Request"}
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
-
                         </View>
                     </ScrollView>
                 </SafeAreaView>
@@ -197,7 +251,6 @@ const styles = StyleSheet.create({
         gap: 12,
         marginBottom: 20,
         justifyContent: 'center',
-
     },
     radioOption: {
         paddingVertical: 10,
@@ -210,6 +263,9 @@ const styles = StyleSheet.create({
     selectedOption: {
         backgroundColor: '#3b82f6',
     },
+    disabledOption: {
+        opacity: 0.6,
+    },
     radioText: {
         color: '#f1f5f9',
         fontWeight: '500',
@@ -217,6 +273,9 @@ const styles = StyleSheet.create({
     selectedText: {
         color: '#ffffff',
         fontWeight: '600',
+    },
+    disabledText: {
+        color: '#94a3b8',
     },
     button: {
         marginTop: 10,
@@ -229,6 +288,10 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 6,
         elevation: 3,
+    },
+    buttonDisabled: {
+        backgroundColor: '#64748b',
+        shadowOpacity: 0.1,
     },
     buttonText: {
         color: '#fff',
