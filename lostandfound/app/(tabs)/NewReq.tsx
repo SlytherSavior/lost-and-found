@@ -6,6 +6,8 @@ import { collection, addDoc } from 'firebase/firestore';
 import Icon from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 import { getDoc, doc } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
+import { ActivityIndicator } from 'react-native';
 
 const NewRequest = () => {
     const [Title, setTitle] = useState('');
@@ -14,6 +16,7 @@ const NewRequest = () => {
     const [Category, setCategory] = useState<'Lost' | 'Found'>('Lost');
     const user = auth.currentUser;
     const collecData = collection(db, "Data");
+    const [loading, setLoading] = useState(true);
 
 
     const addData = async () => {
@@ -28,7 +31,6 @@ const NewRequest = () => {
             });
             console.log(`data added by ${user.email}`);
             setTitle('');
-            setUploader('');
             setDescription('');
             setCategory('Lost');
         } else {
@@ -37,28 +39,54 @@ const NewRequest = () => {
         }
     };
 
-     useEffect(() => {
-        const fetchUserData = async () => {
-          try {
-            const user = auth.currentUser;
-            if (!user) {
-              router.replace("/");
-              return;
-            }
+
+    useEffect(() => {
+      const user = auth.currentUser;
+      if (!user) {
+        router.replace("/");
+        return;
+      }
     
-            const userRef = doc(db, "users", user.uid);
-            const userDoc = await getDoc(userRef);
-            
-            const displayName = user.displayName
-            setUploader(displayName || "Anonymous User");
-            
-          } catch (error) {
-            console.error("Error fetching user data:", error);
-          } 
-        };
+      const userRef = doc(db, "users", user.uid);
     
-        fetchUserData();
-      }, []);
+      const unsubscribe = onSnapshot(userRef, (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data();
+          setUploader(userData.displayName);
+        }
+        setLoading(false);
+      }, (error) => {
+        console.error("Error listening to user doc:", error);
+        setLoading(false);
+      });
+    
+      return () => unsubscribe(); 
+    }, []);
+    
+
+      if (loading) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <ActivityIndicator size="large" color="#2563eb" />
+            </SafeAreaView>
+        );
+      }
+    
+    if (!user) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={{ color: '#f1f5f9', textAlign: 'center' }}>You must be logged in to add a request.</Text>
+            </SafeAreaView>
+        );
+    }
+
+    if (Uploader === '') {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={{ color: '#f1f5f9', textAlign: 'center' }}>Please set a username for yourself to publish a request</Text>
+            </SafeAreaView>
+        );
+    }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

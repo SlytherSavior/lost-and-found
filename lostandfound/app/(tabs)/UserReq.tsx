@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db, auth } from '@/firebaseConfig';
 import { Record } from '@/components/Record';
-import { collection, getDocs, doc, query, where, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, doc,deleteDoc, query, where, updateDoc, onSnapshot } from 'firebase/firestore';
 import Checkbox from 'expo-checkbox';
 import { signOut } from 'firebase/auth';
 import { router } from 'expo-router';
@@ -40,7 +40,7 @@ const UserReq = () => {
     })
     const updateData = async (id: string) => {
         const dataDoc = doc(db, 'Data', id);
-        await updateDoc(dataDoc, { Status: true });
+        await deleteDoc(dataDoc);
         setSelectCount(0)
 
     };
