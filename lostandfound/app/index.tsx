@@ -25,7 +25,7 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await signInWithEmailAndPassword(auth, email, password);
-          if (user?.user) router.replace("/(tabs)/home");
+          if (user?.user) router.replace("/(tabs)/guidelines");
         } catch (error: any) {
           handleAuthError(error.code, "Sign In");
         }
@@ -44,7 +44,8 @@ export default function Index() {
         setPassVisible(false);
         try {
           const user = await createUserWithEmailAndPassword(auth, email, password);
-          if (user?.user) router.replace("/(tabs)/home");
+          if (user?.user) router.replace("/(tabs)/guidelines");
+          // router.replace("/(tabs)/home");
         } catch (error: any) {
           handleAuthError(error.code, "Sign Up");
         }
