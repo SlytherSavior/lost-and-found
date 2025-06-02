@@ -244,6 +244,7 @@ const Profile = () => {
                 onChangeText={(text) => setUserData({ ...userData, displayName: text })}
                 onFocus={() => setFocusedInput("displayName")}
                 onBlur={() => setFocusedInput(null)}
+                placeholder="Enter your username"
                 className={`h-12 px-4 rounded-xl bg-background text-text border ${focusedInput === "displayName" ? "border-primary" : "border-border"}`}
               />
             </View>
@@ -256,6 +257,7 @@ const Profile = () => {
                 onFocus={() => setFocusedInput("bio")}
                 onBlur={() => setFocusedInput(null)}
                 multiline
+                placeholder="Enter your contact information other than your email. Email used to create this account is visible to others."
                 numberOfLines={4}
                 className={`px-4 py-3 rounded-xl bg-background text-text border ${focusedInput === "bio" ? "border-primary" : "border-border"}`}
                 style={{ height: 100, textAlignVertical: 'top' }}
