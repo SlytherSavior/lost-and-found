@@ -34,10 +34,13 @@ This project is completely open source and I encourage anyone to fork, adapt, or
 ## 📸 Screenshots
 
 ![](photos/IMG_1589.jpg)  
-![](photos/IMG_1590.jpg)  
-![](photos/IMG_1591.jpg)  
-![](photos/IMG_1592.jpg)  
-![](photos/IMG_1593.jpg)  
+![](photos/IMG_1887.jpg)  
+![](photos/IMG_1888.jpg)  
+![](photos/IMG_1889.jpg)  
+![](photos/IMG_1890.jpg)  
+![](photos/IMG_1891.jpg)  
+![](photos/IMG_1892.jpg)  
+
 
 ---
 
